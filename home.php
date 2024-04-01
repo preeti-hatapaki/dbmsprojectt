@@ -16,7 +16,7 @@
     <div class="menu">
         <a href="#" style="font-size: ">Scholarship</a>
         <a href="#">Result</a>
-        <a href="" target="_blank">About</a>
+        <a class="btn btn-outline-success mx-2" type="submit" href="about.php">About</a>
         <a class="btn btn-outline-danger mx-2" type="submit" href="logout.php">Logout</a>
      
     </div>
