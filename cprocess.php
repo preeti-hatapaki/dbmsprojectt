@@ -41,14 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $grant_amount = intval($_POST['grant_amount']); // Ensure grant amount is an integer
     $tenth_marks = intval($_POST['tenth_marks']); // Ensure tenth marks is an integer
     $twelfth_marks = intval($_POST['twelfth_marks']); // Ensure twelfth marks is an integer
-    $state = mysqli_real_escape_string($conn, $_POST['state']);
+    $state = isset($_POST['state']) ? mysqli_real_escape_string($conn, implode(",", $_POST['state'])) : ''; // Sanitize and check state input
     $nationality = mysqli_real_escape_string($conn, $_POST['nationality']);
-    $caste = mysqli_real_escape_string($conn, $_POST['caste']);
+    $caste = mysqli_real_escape_string($conn, implode(",", $_POST['caste']));
     $annual_income = intval($_POST['annual_income']); // Ensure annual income is an integer
+    $gender = isset($_POST['gender']) ? implode(',', $_POST['gender']) : ''; // Convert array to comma-separated string
 
     // Insert data into the database
-    $sql = "INSERT INTO criteria (scholarship_name, company_name, grant_amount, tenth_marks, twelfth_marks, state, nationality, caste, annual_income, scholarship_id) 
-            VALUES ('$scholarship_name', '$company_name', $grant_amount, $tenth_marks, $twelfth_marks, '$state', '$nationality', '$caste', $annual_income, '$unique_id')";
+    $sql = "INSERT INTO criteria (scholarship_name, company_name, grant_amount, tenth_marks, twelfth_marks, state, nationality, caste, annual_income, gender, scholarship_id) 
+            VALUES ('$scholarship_name', '$company_name', $grant_amount, $tenth_marks, $twelfth_marks, '$state', '$nationality', '$caste', $annual_income, '$gender', '$unique_id')";
     if (mysqli_query($conn, $sql)) {
         // Redirect to a success page
         header("Location: chome.php");
@@ -59,5 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Close the database connection
     mysqli_close($conn);
+} else {
+    // If the request method is not POST, redirect to the form page
+    header("Location: criteria.php");
+    exit();
 }
 ?>
