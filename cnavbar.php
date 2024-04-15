@@ -8,6 +8,7 @@
         </li>
 </ul>
     <form class="d-flex" >
+        <a class="nav-link" href="cview.php">Scholarships</a>
         <a class="btn btn-outline-success mx-2" type="submit" href="csignup.php">Signup</a>
         <a class="btn btn-outline-primary mx-2" type="submit" href="clogin.php">Login</a>
         
